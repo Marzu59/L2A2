@@ -2,9 +2,9 @@ import { Pool } from "pg";
 import config from ".";
 
 
-const pool = new Pool({connectionString: `${config.connection_str}`});
+export const pool = new Pool({connectionString: `${config.connection_str}`});
 
-const initDB = async()=>{
+export const initDB = async()=>{
    
      await pool.query(`
           CREATE TABLE IF NOT EXISTS users(
@@ -12,7 +12,7 @@ const initDB = async()=>{
           name VARCHAR(100) NOT NULL,
           email VARCHAR(150) UNIQUE NOT NULL,
           password TEXT NOT NULL,
-          phone INT NOT NULL,
+          phone    VARCHAR(100)  NOT NULL,
           role VARCHAR(50)
 
           )
@@ -48,4 +48,3 @@ const initDB = async()=>{
 }
 
 
-export default initDB;
