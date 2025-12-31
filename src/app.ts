@@ -18,6 +18,6 @@ app.use('/api/v1/auth/signup', router);
 
 app.use('/api/v1/auth/', routeAuth)
 
-
+app.use('/api/v1/users', router)
 
 export  default app;

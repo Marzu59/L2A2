@@ -1,6 +1,8 @@
-import { Request, Response } from "express"
+
 import { pool } from "../../config/db";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken"
+import config from "../../config";
 
 const loginDB = async(email:string, password:string)=>{
       
@@ -15,7 +17,19 @@ const loginDB = async(email:string, password:string)=>{
         throw Error("invalid credentials");
 
        }
-       return user;
+      const jwtpayload= {
+        id:   user.rows[0].id,
+        name: user.rows[0].name,
+        email:user.rows[0].email,
+        phone:user.rows[0].phone,
+        role: user.rows[0].role,
+
+      };
+      const token = jwt.sign(jwtpayload, config.jwt_secret as string, {expiresIn: "7d"} )
+
+        // delete user.rows[0].password;
+
+       return {token, user: user.rows[0]};
 
 };
 
