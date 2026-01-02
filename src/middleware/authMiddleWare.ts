@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
  import jwt, { JwtPayload } from "jsonwebtoken"
 import config from "../config";
 import { pool } from "../config/db";
+import { jwtpayLoadType } from "../types/typeforJwtpayload";
   const auth = (...roles: string[])=>{
 
 
@@ -49,7 +50,7 @@ import { pool } from "../config/db";
            if(!token){
             throw new Error("you are not authorized");
            }
-           const decoded = jwt.verify(token, config.jwt_secret as string )  as JwtPayload;
+           const decoded = jwt.verify(token, config.jwt_secret as string )  as jwtpayLoadType;
         //    console.log(decoded)
         //    req.user = decoded;
                 const user = await pool.query(`SELECT * FROM users  WHERE email=$1 `, [decoded.email])

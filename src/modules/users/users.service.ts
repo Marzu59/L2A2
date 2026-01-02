@@ -21,9 +21,26 @@ const createuserIntoDB = async(payload: Record<string, unknown>)=>{
                return result;
              
   }
+
+
+
+  const updateUserByAdminOROwnIntoDB = async(id:number, payload:Record<string, unknown>)=>{
+        const {name, email, phone, role} = payload;
+          
+          
+
+      const result = await pool.query(`
+               UPDATE users SET name=$1, email=$2, phone=$3, role=$4 WHERE id=$5 RETURNING *
+        `, [name, email, phone, role, id] );
+
+        return result;
+
+
+  }
   
 
 export const userServices = {
     createuserIntoDB,
     getAllusersIntoDB,
+    updateUserByAdminOROwnIntoDB,
 }

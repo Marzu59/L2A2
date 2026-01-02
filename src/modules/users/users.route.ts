@@ -9,6 +9,6 @@ const router = express.Router();
 router.post('/',  userControllers.createUser)
 
 router.get('/', auth(roles.admin), userControllers.getAllusers )
-router.put('/:userId',  )
+router.put('/:userId',  auth(roles.admin, roles.customer), userControllers.updateuserByadminorOwnUsingWithID   );
 
 export default router;
