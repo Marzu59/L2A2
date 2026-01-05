@@ -36,11 +36,12 @@ export const initDB = async()=>{
                 vehicle_id  INT REFERENCES vehicles(id) ON DELETE CASCADE,
                 rent_start_date DATE,
                 rent_end_date DATE,
+                total_price INT NOT NULL,
+                status VARCHAR(50) DEFAULT 'active',
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-                CHECK( rent_end_date >= rent_start_date),
-                total_price INT NOT NULL,
-                status VARCHAR(50)
+                CHECK( rent_end_date >= rent_start_date)
+                
 
                 
                 )`)

@@ -39,8 +39,32 @@ const createuserIntoDB = async(payload: Record<string, unknown>)=>{
   }
   
 
+  const deleteuserFromDB = async (id:number, res:Response)=>{
+          
+         const result1 = await pool.query(` SELECT * FROM bookings  WHERE   customer_id=$1   
+                  `, [id]);
+
+                   console.log(result1.rows)
+
+                if(result1.rows.length){
+               return res.status(201).json({
+                message: " user  have booking .Your are not able to delete this user"
+                })
+                }
+
+                   const resultFinal = await pool.query(`DELETE FROM users WHERE id=$1`, [id]);
+                     
+                   return resultFinal;
+
+                   
+             
+             
+
+  }
+
 export const userServices = {
     createuserIntoDB,
     getAllusersIntoDB,
     updateUserByAdminOROwnIntoDB,
+    deleteuserFromDB,
 }

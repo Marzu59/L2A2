@@ -11,4 +11,5 @@ router.post('/',  userControllers.createUser)
 router.get('/', auth(roles.admin), userControllers.getAllusers )
 router.put('/:userId',  auth(roles.admin, roles.customer), userControllers.updateuserByadminorOwnUsingWithID   );
 
+router.delete('/:userId', auth(roles.admin), userControllers.deleteuser);
 export default router;
